@@ -26,11 +26,11 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab3',
+        path: 'songs',
         children: [
           {
             path: '',
-            loadChildren: '../tab3/tab3.module#Tab3PageModule'
+            loadChildren: '../songs/songs.module#SongsPageModule'
           }
         ]
       },
@@ -54,4 +54,6 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule {
+
+}

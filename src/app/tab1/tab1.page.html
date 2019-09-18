@@ -1,41 +1,57 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab One
-    </ion-title>
+  <ion-toolbar  color="dark">
+    <ion-title>Player</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content padding>
+  <ion-row>
+    <ion-col size-md="6" offset-md="3" >
+      <ion-item >
+        <ion-select (ionChange)="changeSet($event)" [(ngModel)]="curSet" class="sets-class" placeholder="wybierz set" style="max-width: 100% !important;">
+          <ion-select-option *ngFor="let set of sets" [value]="set" class="sets-class">{{set.name}}-{{set.band}}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-<ion-content>
-    <ion-card class="welcome-card">
-      <ion-img src="/assets/shapes.svg"></ion-img>
-      <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome to Ionic</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
-      </ion-card-content>
-    </ion-card>
-    <ion-list lines="none">
-      <ion-list-header>
-        <ion-label>Resources</ion-label>
-      </ion-list-header>
-      <ion-item href="https://ionicframework.com/docs/">
-        <ion-icon slot="start" color="medium" name="book"></ion-icon>
-        <ion-label>Ionic Documentation</ion-label>
+      <ion-item *ngIf="songs[curSong].id!='_no_set_selected'">
+        <h3>{{songs[curSong].name}}</h3>
+        <ion-icon name="save" slot="end" (click)="saveSet()"></ion-icon>
       </ion-item>
-      <ion-item href="https://ionicframework.com/docs/building/scaffolding">
-        <ion-icon slot="start" color="medium" name="build"></ion-icon>
-        <ion-label>Scaffold Out Your App</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="center">
+    <ion-col size-md="6" offset-md="3" text-center center>
+      <ion-item text-center class="controlls">
+        <ion-icon name="skip-backward" class="halfling" (click)="previousSong()" ></ion-icon>
+
+        <ion-icon *ngIf="!isPlaying" name="play" class="ion-text-center playBtn" center (click)="play()" style="font-size: 300%"></ion-icon>
+        <ion-icon *ngIf="isPlaying" name="square" class="ion-text-center playBtn" center (click)="stop()" style="font-size: 300%"></ion-icon>
+
+        <ion-icon name="skip-forward" class="halfling" (click)="nextSong()"></ion-icon>
       </ion-item>
-      <ion-item href="https://ionicframework.com/docs/layout/structure">
-        <ion-icon slot="start" color="medium" name="grid"></ion-icon>
-        <ion-label>Change Your App Layout</ion-label>
+
+      <ion-item class="info" center *ngIf="songs[curSong]!=null">
+        <!--<span class="halfling"> <h3>{{songs[curSong].tempo}}</h3></span>-->
+        <span class="halfling" (click)="pickTempo()"> <h3>{{songs[curSong].tempo}}</h3></span>
+        <span class="halfling"> <h3>{{songs[curSong].metrum.beat}}/{{songs[curSong].metrum.bar}} </h3></span>
       </ion-item>
-      <ion-item href="https://ionicframework.com/docs/theming/basics">
-        <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
-        <ion-label>Theme Your App</ion-label>
-      </ion-item>
-    </ion-list>
+    </ion-col>
+  </ion-row>
+
+
+  <div scrollY="true" id="mainsonglist" *ngIf="songs!=null">
+
+      <ion-list>
+        <ion-reorder-group  disabled="false" (ionItemReorder)="doReorder($event)">
+          <ion-item *ngFor="let song of songs; let i = index" (click)="chooseSong(i)">
+
+            <div *ngIf="i==curSong"><h3>{{i+1}}. {{song.name}}</h3></div>
+            <div *ngIf="i!=curSong">{{i+1}}. {{song.name}}</div>
+            <ion-reorder slot="end"></ion-reorder>
+            <ion-icon name="close" (click)="removeSong(i)" slot="end"></ion-icon>
+          </ion-item>
+        </ion-reorder-group>
+      </ion-list>
+
+  </div>
 </ion-content>

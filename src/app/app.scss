@@ -1,6 +1,36 @@
 // App Styles
 // ----------------------------------------------------------------------------
-// Put style rules here that you want to apply to the entire application. These 
-// styles are for the entire app and not just one component. Additionally, this 
-// file can hold Sass mixins, functions, and placeholder classes to be imported 
+// Put style rules here that you want to apply to the entire application. These
+// styles are for the entire app and not just one component. Additionally, this
+// file can hold Sass mixins, functions, and placeholder classes to be imported
 // and used throughout the application.
+
+.halfling{
+  width: 49%;
+  text-align: center;
+}
+
+.outlined{
+  border: 1px silver solid;
+  margin: 0 5px;
+}
+
+ion-content{
+    padding: 5px;
+    --ion-background-color:#EEEEEE;
+    //--ion-text-color: #DDDDDD;
+}
+
+#mainsonglist{
+  height: 300px;
+  overflow: auto;
+}
+
+#choosesonglist{
+  height: 150px;
+  overflow: auto;
+}
+
+.sets-class{
+ width: 200px!important;
+}

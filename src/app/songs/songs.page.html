@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Utwory</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list *ngIf="bands!=null">
+    <ion-select #set (ionChange)="changeBand($event)">
+      <ion-select-option selected="selected">Wybierz Zespół</ion-select-option>
+      <ion-select-option *ngFor="let band of bands" [value]="band">{{band.name}}</ion-select-option>
+    </ion-select>
+  </ion-list>
+
+    <form *ngIf="chosenBand!=undefined" class="outlined">
+      <ion-item >
+        <ion-label>Nowy utwór: </ion-label>
+        <ion-input [(ngModel)]="newSong.name" name="newSongName" placeholder="Nazwa">  </ion-input>
+
+        <ion-button fill="clear" type="submit" (click)="addNewSong()"><ion-icon name="add-circle"></ion-icon></ion-button>
+      </ion-item>
+      <ion-item>
+        <label for ="tempo">Tempo</label>
+        <span class="halfling" (click)="pickTempo()" name="tempo"> <h3>{{newSong.tempo}}</h3></span>
+        <label for ="metrum">Metrum</label>
+        <span class="halfling" (click)="pickMetrum()" name="metrum"> <h3> {{newSong.metrum.beat}}/ {{newSong.metrum.bar}}</h3></span>
+      </ion-item>
+    </form>
+  <ion-item class="song">
+    <span class="name" >Utwór</span> <span class="tempo">Tempo</span><span>Metrum</span>
+  </ion-item>
+  <div scrollY="true" id="mainsonglist">
+    <ion-list *ngIf="allSongs!=[]">
+      <ion-item *ngFor="let song of bandSongs" class="song">
+        <span class="name" >{{song.name}}</span> <span class="tempo">{{song.tempo}}</span><span>{{song.metrum.beat}}\{{song.metrum.bar}}</span>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

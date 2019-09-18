@@ -1,4 +1,43 @@
-.welcome-card ion-img {
-  max-height: 35vh;
-  overflow: hidden;
+.play{
+  border-radius: 50%;
+  border: solid 1px silver;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  font-size: 300%;
+  text-align: center;
+
+
+  ion-icon{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+    height: 100%;
+    width: 90%;
+  }
+}
+
+.controlls{
+  font-size: 200%;
+}
+
+.left{
+
+  float: left;
+  padding: 2px;
+}
+
+.right{
+
+  float: right;
+  padding: 2px;
+}
+h3{
+  width: 100%;
+  text-align: center;;
+}
+
+.sets-class{
+ width: 200px!important;
 }

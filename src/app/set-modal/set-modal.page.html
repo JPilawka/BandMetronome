@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edycja Setu</ion-title>
+    <ion-icon name="close" slot="start" (click)="closeModal()" style="padding: 0 15px"></ion-icon>
+
+    <ion-icon name="save" slot="end" (click)="saveSet()" style="padding: 0 15px"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div style="width: 100%">
+    <span>Dodaj utwór do listy</span><ion-icon *ngIf="!addSongSectionOpen" name="add-circle-outline" (click)=addSongToSet() class="ion-text-right" slot="end" style="float: right">  </ion-icon>
+  </div>
+  <div *ngIf="addSongSectionOpen" >
+    Dodaj utwory do setu
+    <ion-list scrollY="true" id="choosesonglist" style="border: 1px solid black; margin: 5px;" color="dark">
+      <ion-item *ngFor="let s of allSongs" (click)=addItemToSet(s.id)>
+        {{s.name}}
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-list *ngIf="selectedSongs!=null">
+    <ion-reorder-group  disabled="false" (ionItemReorder)="doReorder($event)">
+    <ion-item *ngFor="let song of selectedSongs; let i = index">
+      {{i+1}}. {{song.songName}}
+      <ion-reorder slot="end"></ion-reorder>
+      <ion-button class="deleteBtn" fill="clear" (click)="deleteSong(i)" slot="end">
+        <ion-icon  name="close" ></ion-icon>
+      </ion-button>
+    </ion-item>
+    </ion-reorder-group>
+  </ion-list>
+</ion-content>

@@ -1,9 +1,56 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>
-      Tab Two
+      Sety i Zespoły
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content padding>
+
+  <form>
+
+    <ion-item>
+      <ion-label>Nowy zespół: </ion-label>
+      <ion-input [(ngModel)]="newBand" name="newBand" placeholder="Nazwa">  </ion-input>
+      <ion-icon name="add-circle" (click)="addNewBand()" slot="end"></ion-icon>
+    </ion-item>
+  </form>
+
+  <ion-list *ngIf="bandList!=null">
+    <div *ngFor="let band of bandList; let i = index" >
+      <ion-item>
+          {{band.name}}
+        <ion-icon name="menu" (click)="setListOpenManager[i]=!setListOpenManager[i]" slot="end" >Edytuj</ion-icon>
+        <ion-icon name="close" (click)="removeBand(band.id)" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-list *ngIf="setListOpenManager[i]" style="width: 90%; float: right">
+        <form>
+          <ion-item>
+
+            <ion-label>Nowy set: </ion-label>
+            <ion-input [(ngModel)]="newSet" name="newSet" placeholder="Nazwa">  </ion-input>
+            <ion-button fill="clear" type="submit" (click)="addNewSet(i)"><ion-icon name="add-circle"></ion-icon></ion-button>
+
+        </ion-item>
+      </form>
+
+        <ion-item *ngFor="let set of returnBandSets(band.id)">
+          <ion-button (click)="selectSet(set.id)" fill="clear" ><ion-icon *ngIf="selectedSet!=set.id" name="radio-button-off"  slot="start"></ion-icon></ion-button>
+          <ion-icon *ngIf="selectedSet==set.id" name="checkmark-circle" slot="start"></ion-icon>
+
+          {{set.name}}
+          <ion-button class="deleteBtn" fill="new" *ngIf="set.name!='main'" (click)="editSet(set.id)" slot="end">
+            <ion-icon  name="settings" size="small"></ion-icon>
+          </ion-button>
+          <ion-button class="deleteBtn" fill="clear" *ngIf="set.name!='main'" (click)="deleteSet(set.rev)" slot="end">
+            <ion-icon  name="close" ></ion-icon>
+          </ion-button>
+
+        </ion-item>
+
+      </ion-list>
+    </div>
+  </ion-list>
+</ion-content>
